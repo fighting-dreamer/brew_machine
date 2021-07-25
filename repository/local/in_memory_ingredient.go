@@ -6,6 +6,12 @@ type InMemoryIngredientRepository struct {
 	data map[string]*domain.Ingredient
 }
 
+func NewInMemoryIngredientRepository() *InMemoryIngredientRepository {
+	return &InMemoryIngredientRepository{
+		data: map[string]*domain.Ingredient{},
+	}
+}
+
 func (imir *InMemoryIngredientRepository) AddNew(ingredient domain.Ingredient) error {
 	imir.data[ingredient.Name] = &ingredient
 	return nil

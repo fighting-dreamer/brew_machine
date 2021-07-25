@@ -6,6 +6,12 @@ type InMemoryBeverageRepository struct {
 	data map[string]*domain.Beverage
 }
 
+func NewInMemoryBeverageRepository() *InMemoryBeverageRepository {
+	return &InMemoryBeverageRepository{
+		data: map[string]*domain.Beverage{},
+	}
+}
+
 func (imbr *InMemoryBeverageRepository) AddNew(beverage domain.Beverage) error {
 	imbr.data[beverage.Name] = &beverage
 	return nil
