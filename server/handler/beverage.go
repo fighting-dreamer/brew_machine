@@ -36,6 +36,7 @@ func (bh *BeverageHandler) AddNewBeverageAPI(w http.ResponseWriter, r *http.Requ
 	err = bh.BeverageManager.AddNew(beverage)
 	if err != nil {
 		WriteErrorResponse(http.StatusInternalServerError, []string{err.Error()}, w)
+		return
 	}
 
 	WriteResponse(http.StatusOK, beverage, w)

@@ -16,7 +16,7 @@
    -[x] add new ingridient
    -[x] isAvaliable for checking is ingridient is available.
 3. Dispenser service (controller)
-   1. make_beverage
+   -[x] make_beverage
 4. beverage reposiotory
    -[x] Create
    -[x] Read
@@ -31,7 +31,7 @@
 7. beverage controller
    -[x] AddNewBeverageAPI
 8. Dispenser controller
-   1. MakeBeverageAPI
+   -[x] MakeBeverageAPI
 9.  transaction lock manager
 
 # Other Aspects :

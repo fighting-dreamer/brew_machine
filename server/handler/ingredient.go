@@ -34,6 +34,7 @@ func (ih *IngredientHandler) AddNewIngredientAPI(w http.ResponseWriter, r *http.
 
 	if err != nil {
 		WriteErrorResponse(http.StatusInternalServerError, []string{err.Error()}, w)
+		return
 	}
 
 	WriteResponse(http.StatusOK, ingredient, w)
@@ -54,6 +55,7 @@ func (ih *IngredientHandler) RefillIngredientAPI(w http.ResponseWriter, r *http.
 
 	if err != nil {
 		WriteErrorResponse(http.StatusInternalServerError, []string{err.Error()}, w)
+		return
 	}
 
 	WriteResponse(http.StatusOK, refillReq, w)
@@ -68,6 +70,7 @@ func (ih *IngredientHandler) IsIngredientAvailableAPI(w http.ResponseWriter, r *
 
 	if err != nil {
 		WriteErrorResponse(http.StatusInternalServerError, []string{err.Error()}, w)
+		return
 	}
 
 	WriteResponse(http.StatusOK, map[string]bool{"available": isAvailable}, w)
