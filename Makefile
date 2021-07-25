@@ -15,6 +15,6 @@ go-get:
 test: clean go-get ## test the code
 	go test ./...
 
-compile: go-get ## build the executable
+compile: clean go-get ## build the executable
 	mkdir -p out/
 	go build -o $(APP_EXECUTABLE)
