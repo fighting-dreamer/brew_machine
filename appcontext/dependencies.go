@@ -38,7 +38,7 @@ func (dependencies *Instance) addTransactionLockManager() {
 }
 
 func (dependencies *Instance) addBeverageRepository() {
-	dependencies.BeverageRepository = local_repo.NewInMemoryBeverageRepository()
+	dependencies.BeverageRepository = local_repo.NewInMemoryBeverageRepository(dependencies.TransactionLockManager)
 }
 
 func (dependencies *Instance) addIngredientRepository() {

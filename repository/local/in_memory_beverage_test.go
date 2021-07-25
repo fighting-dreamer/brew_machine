@@ -9,6 +9,7 @@ import (
 func TestInMemoryBeverageRepository_AddNewAndGet(t *testing.T) {
 	inMemoryBeverageRepository := InMemoryBeverageRepository{
 		data: map[string]*domain.Beverage{},
+		// TODO : add transactionalLockManager Mock objects here.
 	}
 	chai := "chai"
 	inMemoryBeverageRepository.AddNew(domain.Beverage{
