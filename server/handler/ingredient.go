@@ -51,6 +51,11 @@ func (ih *IngredientHandler) RefillIngredientAPI(w http.ResponseWriter, r *http.
 		return
 	}
 
+	if refillReq.Quantity < 0 {
+		WriteErrorResponse(http.StatusBadRequest, []string{"Quantity should be postive"}, w)
+		return
+	}
+
 	err = ih.IngredientManager.UpdateQuantity(refillReq.Name, refillReq.Quantity)
 
 	if err != nil {
