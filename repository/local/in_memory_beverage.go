@@ -13,6 +13,9 @@ func NewInMemoryBeverageRepository() *InMemoryBeverageRepository {
 }
 
 func (imbr *InMemoryBeverageRepository) AddNew(beverage domain.Beverage) error {
+	if imbr.data[beverage.Name] != nil {
+		return nil
+	}
 	imbr.data[beverage.Name] = &beverage
 	return nil
 }
