@@ -41,7 +41,7 @@
 -[ ] Exception Handling
 -[ ] Utils
 -[x] Config Management
--[ ] Dependency Management
+-[x] Dependency Management
 
 # oother related project :
 1. Client OR user of machine

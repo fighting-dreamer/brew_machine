@@ -1,9 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"nipun.io/brew_machine/appcontext"
+)
 
 func main() {
-	fmt.Println("Hello World!")
+	appcontext.Init()
 
 	return
 }
