@@ -5,9 +5,10 @@ import (
 )
 
 type Config struct {
-	appPort  int
-	appName  string
-	logLevel string
+	appPort   int
+	appName   string
+	logLevel  string
+	outletCnt int
 }
 
 var appConfiguration *Config
@@ -30,9 +31,10 @@ func load(configFileName string) {
 	viper.ReadInConfig()
 
 	appConfiguration = &Config{
-		appPort:  getIntOrPanic("app_port"),
-		appName:  getStringOrPanic("app_name"),
-		logLevel: getStringOrPanic("log_level"),
+		appPort:   getIntOrPanic("app_port"),
+		appName:   getStringOrPanic("app_name"),
+		logLevel:  getStringOrPanic("log_level"),
+		outletCnt: getIntOrPanic("outlet_count"),
 	}
 
 	return
@@ -48,4 +50,8 @@ func AppName() string {
 
 func LogLevel() string {
 	return appConfiguration.logLevel
+}
+
+func OutletCnt() int {
+	return appConfiguration.outletCnt
 }

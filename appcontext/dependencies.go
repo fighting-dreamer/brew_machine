@@ -1,6 +1,7 @@
 package appcontext
 
 import (
+	"nipun.io/brew_machine/config"
 	"nipun.io/brew_machine/repository"
 	local_repo "nipun.io/brew_machine/repository/local"
 	"nipun.io/brew_machine/service"
@@ -12,6 +13,7 @@ type Instance struct {
 	IngredientRepository repository.IngredientRepository
 	BeverageManager      service.BeverageManager
 	IngredientManager    service.IngredientManager
+	DispenserService     service.DispenserService
 }
 
 var AppDependencies *Instance
@@ -37,5 +39,13 @@ func (dependencies *Instance) addBeverageManager() {
 func (dependencies *Instance) addIngredientManager() {
 	dependencies.IngredientManager = &local_service.LocalIngredientManager{
 		IngredientRepository: dependencies.IngredientRepository,
+	}
+}
+
+func (dependencies *Instance) addDispenserService() {
+	dependencies.DispenserService = &local_service.LocalDispenserService{
+		BeverageRepository:   dependencies.BeverageRepository,
+		IngredientRepository: dependencies.IngredientRepository,
+		OutletCnt:            config.OutletCnt(),
 	}
 }
