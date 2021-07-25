@@ -1,6 +1,6 @@
 package domain
 
 type Ingredient struct {
-	Name string
+	Name              string
 	AvailableQuantity int
 }
