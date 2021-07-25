@@ -59,8 +59,9 @@ func (dependencies *Instance) addIngredientManager() {
 
 func (dependencies *Instance) addDispenserService() {
 	dependencies.DispenserService = &local_service.LocalDispenserService{
-		BeverageRepository:   dependencies.BeverageRepository,
-		IngredientRepository: dependencies.IngredientRepository,
-		OutletCnt:            config.OutletCnt(),
+		BeverageRepository:     dependencies.BeverageRepository,
+		IngredientRepository:   dependencies.IngredientRepository,
+		OutletCnt:              config.OutletCnt(),
+		TransactionLockManager: dependencies.TransactionLockManager,
 	}
 }
