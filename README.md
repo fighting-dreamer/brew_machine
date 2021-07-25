@@ -9,12 +9,12 @@
 
 # Services :
 1. beverage manager/service
-   1. add new beverage
+   -[x] add new beverage
 2. ingredients manager/service
-   1. getIngridient
-   2. update ingridient
-   3. add new ingridient
-   4. isAvaliable for checking is ingridient is available.
+   -[x] getIngridient
+   -[x] update ingridient
+   -[x] add new ingridient
+   -[x] isAvaliable for checking is ingridient is available.
 3. Dispenser service (controller)
    1. make_beverage
 4. beverage reposiotory

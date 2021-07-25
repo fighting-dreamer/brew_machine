@@ -16,11 +16,13 @@ func (imir *InMemoryIngredientRepository) AddNew(ingredient domain.Ingredient) e
 	imir.data[ingredient.Name] = &ingredient
 	return nil
 }
+
 func (imir *InMemoryIngredientRepository) UpdateQuantity(name string, delta int) error {
 	ingredient := imir.data[name]
 	ingredient.AvailableQuantity = ingredient.AvailableQuantity + delta
 	return nil
 }
+
 func (imir *InMemoryIngredientRepository) Get(name string) (*domain.Ingredient, error) {
 	return imir.data[name], nil
 }
