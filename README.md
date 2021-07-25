@@ -36,19 +36,19 @@
 
 # Other Aspects :
 -[x] Logging
--[ ] HttpServerMux
--[ ] Monitoring
--[ ] Security
--[ ] Exception Handling
--[ ] Utils
+-[x] HttpServerMux
+-[ ] Monitoring **Not asked.**
+-[ ] Security **Not asked.**
+-[x] Exception Handling
+-[x] Utils
 -[x] Config Management
 -[x] Dependency Management
 
-# oother related project :
+# other related project :
 1. Client OR user of machine
 
 # Processes :
-1. CRUD bevrages
+-[x] CRUD bevrages
    1. Create : 
       1. add entry in begrage repository
       2. return success
@@ -58,7 +58,7 @@
    3. Update : **Not asked.**
    4. Delete : **Not asked.**
 
-2. CRUD ingredients
+-[x] CRUD ingredients
    1. Create :
       1. call new ingridient api from ingridient manager
       2. _add_ entry in ingredients repo.
@@ -93,7 +93,7 @@
 5. check which ingredients are finished, track finished ingredients
    1. READ the ingridients
 6. start machine
-   1. initiantiate dependencies
+   1. initantiate dependencies
    2. add seed data form file
-7.  stop machine
+7.  stop machine : simple Close interrupt for us.
     1.  graceful shutdown ie. serve the one last beverage from machine from each outlet.
