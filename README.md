@@ -34,14 +34,14 @@
 9.  transaction lock manager
 
 # Other Aspects :
-1. Logging
-2. HttpServerMux
-3. Monitoring
-4. Security
-5. Exception Handling
-6. Utils
-7. Config Management
-8. Dependency Management
+-[x] Logging
+-[ ] HttpServerMux
+-[ ] Monitoring
+-[ ] Security
+-[ ] Exception Handling
+-[ ] Utils
+-[x] Config Management
+-[ ] Dependency Management
 
 # oother related project :
 1. Client OR user of machine
