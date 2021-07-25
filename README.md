@@ -18,11 +18,12 @@
 3. Dispenser service (controller)
    1. make_beverage
 4. beverage reposiotory
-   1. Create
+   -[x] Create
+   -[x] Read
 5. ingredient respository
-   1. add
-   2. update
-   3. read
+   -[x] add
+   -[x] update
+   -[x] read
 6. ingridients controller
    1. AddNewIngridientAPI
    2. Re-fillIngridientAPI
