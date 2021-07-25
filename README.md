@@ -1,8 +1,8 @@
 # Resources : 
-1. beverages
+-[x] beverages
    1. name
-   2. ingredientsList
-2. ingredients
+   2. ingredientsQuantityMap
+-[x] ingredients
    1. name
    2. available-amount
 
