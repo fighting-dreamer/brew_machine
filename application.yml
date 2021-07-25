@@ -1,0 +1,3 @@
+app_port: 8080
+app_name: "brew_machine"
+log_level: "info"
