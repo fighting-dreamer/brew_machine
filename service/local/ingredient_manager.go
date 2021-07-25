@@ -26,7 +26,7 @@ func (lim *LocalIngredientManager) IsAvailable(name string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if ingredient.AvailableQuantity > 0 {
+	if ingredient != nil && ingredient.AvailableQuantity > 0 {
 		return true, nil
 	}
 	return false, nil

@@ -25,9 +25,9 @@
    -[x] update
    -[x] read
 6. ingridients controller
-   1. AddNewIngridientAPI
-   2. Re-fillIngridientAPI
-   3. IsAvailable
+   -[x] AddNewIngridientAPI
+   -[x] Re-fillIngridientAPI
+   -[x] IsAvailable
 7. beverage controller
    -[x] AddNewBeverageAPI
 8. Dispenser controller
