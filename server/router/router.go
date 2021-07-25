@@ -9,6 +9,6 @@ func Router(dependencies *appcontext.Instance) *mux.Router {
 	router := mux.NewRouter()
 
 	handleSystemRoutes(dependencies, router)
-
+	handleBeverageRoutes(dependencies, router)
 	return router
 }

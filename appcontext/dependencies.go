@@ -20,6 +20,11 @@ var AppDependencies *Instance
 
 func LoadDependencies() {
 	AppDependencies = &Instance{}
+	AppDependencies.addBeverageRepository()
+	AppDependencies.addIngredientRepository()
+	AppDependencies.addBeverageManager()
+	AppDependencies.addIngredientManager()
+	AppDependencies.addDispenserService()
 }
 
 func (dependencies *Instance) addBeverageRepository() {

@@ -29,7 +29,7 @@
    2. Re-fillIngridientAPI
    3. IsAvailable
 7. beverage controller
-   1. AddNewBeverageAPI
+   -[x] AddNewBeverageAPI
 8. Dispenser controller
    1. MakeBeverageAPI
 9.  transaction lock manager
