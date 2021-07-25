@@ -28,12 +28,14 @@ func (lds *LocalDispenserService) MakeBeverage(name string, outlet int) (domain.
 	acquiredIngredientsList := []string{}
 
 	for ingredient, quantity := range beverage.IngredientsQuantityMap {
+		// remove the X units of an ingredient
 		err = lds.IngredientRepository.UpdateQuantity(ingredient, -quantity)
 		acquiredIngredientsList = append(acquiredIngredientsList, ingredient)
 		if err != nil {
 			// rolling back  the change.
 			for _, acquiredIngredient := range acquiredIngredientsList {
 				// ignoring the error deliberately, will need to add more complexity to handle this.
+				// add the X units of an ingredient that was taken
 				lds.IngredientRepository.UpdateQuantity(acquiredIngredient, quantity)
 
 			}
