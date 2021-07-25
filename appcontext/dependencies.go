@@ -6,25 +6,35 @@ import (
 	local_repo "nipun.io/brew_machine/repository/local"
 	"nipun.io/brew_machine/service"
 	local_service "nipun.io/brew_machine/service/local"
+	"sync"
 )
 
 type Instance struct {
-	BeverageRepository   repository.BeverageRepository
-	IngredientRepository repository.IngredientRepository
-	BeverageManager      service.BeverageManager
-	IngredientManager    service.IngredientManager
-	DispenserService     service.DispenserService
+	BeverageRepository     repository.BeverageRepository
+	IngredientRepository   repository.IngredientRepository
+	BeverageManager        service.BeverageManager
+	IngredientManager      service.IngredientManager
+	DispenserService       service.DispenserService
+	TransactionLockManager service.TransactionLockManager
 }
 
 var AppDependencies *Instance
 
 func LoadDependencies() {
 	AppDependencies = &Instance{}
+	AppDependencies.addTransactionLockManager()
 	AppDependencies.addBeverageRepository()
 	AppDependencies.addIngredientRepository()
 	AppDependencies.addBeverageManager()
 	AppDependencies.addIngredientManager()
 	AppDependencies.addDispenserService()
+}
+
+func (dependencies *Instance) addTransactionLockManager() {
+	dependencies.TransactionLockManager = &local_service.TransactionLockManager{
+		KeeperState: map[string]string{},
+		Keeper:      map[string]*sync.Mutex{},
+	}
 }
 
 func (dependencies *Instance) addBeverageRepository() {
