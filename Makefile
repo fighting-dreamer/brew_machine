@@ -18,3 +18,6 @@ test: clean go-get ## test the code
 compile: clean go-get ## build the executable
 	mkdir -p out/
 	go build -o $(APP_EXECUTABLE)
+
+seed:
+	sh scripts/seed.sh
