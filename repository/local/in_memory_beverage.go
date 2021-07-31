@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"nipun.io/brew_machine/domain"
 	"nipun.io/brew_machine/service"
 )
@@ -14,6 +15,11 @@ var (
 	InMemoryBeverageRepositoryLockKeys = []string{"InMemoryBeverageRepository", "data"}
 )
 
+const (
+	BeverageAlreadyExists = "BeverageAlreadyExists"
+	BeverageDoesNotExists = "BeverageDoesNotExists"
+)
+
 func NewInMemoryBeverageRepository(TransactionLockManager service.TransactionLockManager) *InMemoryBeverageRepository {
 	return &InMemoryBeverageRepository{
 		data:                   map[string]*domain.Beverage{},
@@ -22,17 +28,22 @@ func NewInMemoryBeverageRepository(TransactionLockManager service.TransactionLoc
 }
 
 func (imbr *InMemoryBeverageRepository) AddNew(beverage domain.Beverage) error {
-	defer imbr.transactionLockManager.ReleaseLock(InMemoryBeverageRepositoryLockKeys)
 	imbr.transactionLockManager.AcquireLock(InMemoryBeverageRepositoryLockKeys)
 	if imbr.data[beverage.Name] != nil {
-		return nil
+		imbr.transactionLockManager.ReleaseLock(InMemoryBeverageRepositoryLockKeys)
+		return errors.New(BeverageAlreadyExists)
 	}
 	imbr.data[beverage.Name] = &beverage
+	imbr.transactionLockManager.ReleaseLock(InMemoryBeverageRepositoryLockKeys)
 	return nil
 }
 
 func (imbr *InMemoryBeverageRepository) Get(name string) (*domain.Beverage, error) {
-	defer imbr.transactionLockManager.ReleaseLock(InMemoryBeverageRepositoryLockKeys)
 	imbr.transactionLockManager.AcquireLock(InMemoryBeverageRepositoryLockKeys)
-	return imbr.data[name], nil
+	beverage := imbr.data[name]
+	imbr.transactionLockManager.ReleaseLock(InMemoryBeverageRepositoryLockKeys)
+	if beverage == nil {
+		return nil, errors.New(BeverageDoesNotExists)
+	}
+	return beverage, nil
 }

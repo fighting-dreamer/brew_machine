@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	IngredientDoesNotExist = errors.New("IngredientDoesNotExist")
+	IngredientDoesNotExist     = errors.New("IngredientDoesNotExist")
+	IngredientLessThanRequired = errors.New("IngredientLessThanRequired")
 
 	InMemoryIngredientRepositoryLockKeys = []string{"InMemoryIngredientRepository", "data"}
 )
@@ -25,31 +26,41 @@ func NewInMemoryIngredientRepository(TransactionLockManager service.TransactionL
 }
 
 func (imir *InMemoryIngredientRepository) AddNew(ingredient domain.Ingredient) error {
-	defer imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	imir.transactionLockManager.AcquireLock(InMemoryIngredientRepositoryLockKeys)
 	if imir.data[ingredient.Name] != nil {
+		imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 		return nil
 	}
 	imir.data[ingredient.Name] = &ingredient
+	imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	return nil
 }
 
 func (imir *InMemoryIngredientRepository) UpdateQuantity(name string, delta int) error {
-	defer imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	imir.transactionLockManager.AcquireLock(InMemoryIngredientRepositoryLockKeys)
 	if imir.data[name] == nil {
+		imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 		return IngredientDoesNotExist
 	}
+
 	ingredient := imir.data[name]
+	if (ingredient.AvailableQuantity + delta) < 0 {
+		imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
+		return IngredientLessThanRequired
+	}
+
 	ingredient.AvailableQuantity = ingredient.AvailableQuantity + delta
+	imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	return nil
 }
 
 func (imir *InMemoryIngredientRepository) Get(name string) (*domain.Ingredient, error) {
-	defer imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	imir.transactionLockManager.AcquireLock(InMemoryIngredientRepositoryLockKeys)
 	if imir.data[name] == nil {
+		imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 		return nil, IngredientDoesNotExist
 	}
+
+	imir.transactionLockManager.ReleaseLock(InMemoryIngredientRepositoryLockKeys)
 	return imir.data[name], nil
 }
