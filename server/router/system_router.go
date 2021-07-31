@@ -11,4 +11,6 @@ import (
 func handleSystemRoutes(dependencies *appcontext.Instance, router *mux.Router) {
 	router.HandleFunc("/ping", handler.PingHandler).
 		Methods(http.MethodGet)
+	//LockHandler := handler.NewLockHandler(dependencies)
+	//router.HandleFunc("/lock_state", LockHandler.GetCurrentLocksStateAPI).Methods(http.MethodGet)
 }

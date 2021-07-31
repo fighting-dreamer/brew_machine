@@ -1,10 +1,9 @@
 package service
 
 import (
+	"nipun.io/brew_machine/logger"
 	"strings"
 	"sync"
-
-	"nipun.io/brew_machine/logger"
 )
 
 type TransactionLockManager struct {
@@ -39,8 +38,17 @@ func (tlm *TransactionLockManager) ReleaseLock(entities []string) {
 
 	if tlm.KeeperState[entitiesString] == Locked {
 		logger.Logger.Debug().Msgf("released lock on mutex for entity : %s", entitiesString)
-		tlm.Keeper[entitiesString].Unlock()
 		tlm.KeeperState[entitiesString] = ""
+		tlm.Keeper[entitiesString].Unlock()
+
+	}
+	mutex.Unlock()
+}
+
+func (tlm *TransactionLockManager) GetCurrentLockState() {
+	mutex.Lock()
+	for k, v := range tlm.KeeperState {
+		logger.Logger.Debug().Msgf("key : %s, Value : %s", k, v)
 	}
 	mutex.Unlock()
 }
