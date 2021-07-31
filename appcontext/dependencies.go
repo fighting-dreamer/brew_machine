@@ -32,8 +32,8 @@ func LoadDependencies() {
 
 func (dependencies *Instance) addTransactionLockManager() {
 	dependencies.TransactionLockManager = &local_service.TransactionLockManager{
-		KeeperState: sync.Map{},//map[string]string{},
-		Keeper:      sync.Map{},//map[string]*local_service.CounterMutex{},
+		KeeperState: map[string]string{},
+		Keeper:      map[string]*sync.Mutex{},
 	}
 }
 
