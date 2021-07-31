@@ -18,11 +18,11 @@ func (lds *LocalDispenserService) MakeBeverage(name string, outlet int) (domain.
 	// check if given outlet is available for providing the beverage.
 	outletNumberStr := fmt.Sprintf("%d", outlet)
 	lockKeys := []string{"LocalDispenserService", "Outlet", outletNumberStr}
-	defer lds.TransactionLockManager.ReleaseLock(lockKeys)
 	lds.TransactionLockManager.AcquireLock(lockKeys)
 
 	beverage, err := lds.BeverageRepository.Get(name)
 	if err != nil {
+		lds.TransactionLockManager.ReleaseLock(lockKeys)
 		return domain.Beverage{}, err
 	}
 	acquiredIngredientsList := []string{}
@@ -30,7 +30,6 @@ func (lds *LocalDispenserService) MakeBeverage(name string, outlet int) (domain.
 	for ingredient, quantity := range beverage.IngredientsQuantityMap {
 		// remove the X units of an ingredient
 		err = lds.IngredientRepository.UpdateQuantity(ingredient, -quantity)
-		acquiredIngredientsList = append(acquiredIngredientsList, ingredient)
 		if err != nil {
 			// rolling back  the change.
 			for _, acquiredIngredient := range acquiredIngredientsList {
@@ -39,9 +38,11 @@ func (lds *LocalDispenserService) MakeBeverage(name string, outlet int) (domain.
 				lds.IngredientRepository.UpdateQuantity(acquiredIngredient, quantity)
 
 			}
+			lds.TransactionLockManager.ReleaseLock(lockKeys)
 			return domain.Beverage{}, err
 		}
+		acquiredIngredientsList = append(acquiredIngredientsList, ingredient)
 	}
-
+	lds.TransactionLockManager.ReleaseLock(lockKeys)
 	return *beverage, nil
 }

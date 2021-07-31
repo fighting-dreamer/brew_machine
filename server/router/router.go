@@ -11,5 +11,6 @@ func Router(dependencies *appcontext.Instance) *mux.Router {
 	handleSystemRoutes(dependencies, router)
 	handleBeverageRoutes(dependencies, router)
 	handleIngredientRoutes(dependencies, router)
+	handleDispenserRoutes(dependencies, router)
 	return router
 }
